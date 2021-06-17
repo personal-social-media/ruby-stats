@@ -12,7 +12,3 @@ elsif OS.include? "linux"
   puts "Testing Linux Version"
   puts `uname -a`
 end
-
-RSpec.configure do |config|
-
-end

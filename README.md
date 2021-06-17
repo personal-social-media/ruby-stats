@@ -1,5 +1,6 @@
-# ruby-stats
-![A part of our Admin Panel that we use internally](https://cloud.githubusercontent.com/assets/973265/7853394/2e0b03b6-052b-11e5-97cf-7c330eaa78e6.png)
+# ruby-stats-psm
+
+Credits to https://github.com/skcript for the initial code.
 
 ## DESCRIPTION:
 Ruby Stats helps you get your system statistics whenever you need it. We use it internally to monitor our Servers and send it to our monitoring servers in the cloud. This Gem currently supports Ubuntu and Mac. Unfortunately we have no plans to bring it for Windows.
@@ -147,49 +148,13 @@ Top Ten Processes By Memory Consumption: [["WebProcess", "8.3"], ["rubymine", "6
 
 * HTTP Conns is the number of connections on 80 port
 
-## TODO
-- Open Source our internal Rails based Dashboard to monitor a server
-- More Realtime data updates
-- API to send data to Sensu/Graphite directly
-
 ## Tested Using
 
 **RUBY VERSIONS:**
-- ruby 1.9.3p429 (2013-05-15) [x86_64-linux]
-- ruby 2.0
-- ruby 2.1.5
+- ruby 3.0.1
 
 **TESTED OS VERSIONS:**
-- Ubuntu 14.04
+- Ubuntu 20.04
 - Mac OS 10.x
 
-## Credits
-Thanks to Ruben Espinosa, Phil Chen for the wonderful [Usagewatch](https://github.com/nethacker/usagewatch) gem.
-
-Getting Help
-------------
-
-We spend about 40% of our time contributing to Open Source software. That's one of our goals for this year. Please [tweet](https://twitter.com/skcriptd) us with any queries you have. 
-
-License
--------
-
-ruby-stats is Copyright (c) 2015 Skcript. It is free software, and may be
-redistributed under the terms specified in the [LICENSE] file.
-
-[LICENSE]: /LICENSE
-
-
-About
------
-
-![Skcript](http://www.skcript.com/static/skcript_norm.png)
-
-ruby-stats is maintained and funded by Skcript. The names and logos for
-Skcript are properties of Skcript.
-
-We love open source, and we have been doing quite a bit of contributions to the community. Take a look at them [here][skcriptoss]. Also, encourage people around us to get involved in community [operations][community]. [Join us][hiring], if you'd like to see the world change from our HQ.
-
-[skcriptoss]: http://skcript.github.io/
-[community]: http://www.skcript.com/community?utm_source=github
-[hiring]: http://www.skcript.com/careers?utm_source=github
+License MIT
