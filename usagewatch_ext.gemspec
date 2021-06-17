@@ -3,7 +3,7 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "usagewatch_ext/version"
+require "rubystats_psm/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "psm-ruby-stats"
