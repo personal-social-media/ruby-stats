@@ -1,15 +1,17 @@
-require 'rspec'
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe 'IncludeLibrary' do
-  it 'should include the library' do
+require "rspec"
+require "spec_helper"
+
+describe "IncludeLibrary" do
+  xit "should include the library" do
     a = Usagewatch
     a.should be Usagewatch
   end
 end
 
-describe 'DiskUsage' do
-  it "should be the GB of disk used" do
+describe "DiskUsage" do
+  xit "should be the GB of disk used" do
     a = Usagewatch.uw_diskused
     a.class.should be(Float)
     a.should_not be_nil
@@ -17,8 +19,8 @@ describe 'DiskUsage' do
   end
 end
 
-describe 'DiskUsage_on' do
-  it "should be the GB of disk used on root partition" do
+describe "DiskUsage_on" do
+  xit "should be the GB of disk used on root partition" do
     a = Usagewatch.uw_diskused_on("/")
     a.class.should be(Float)
     a.should_not be_nil
@@ -26,16 +28,16 @@ describe 'DiskUsage_on' do
   end
 end
 
-describe 'DiskAvailable' do
-  it "should be the GB of disk available" do
+describe "DiskAvailable" do
+  xit "should be the GB of disk available" do
     a = Usagewatch.uw_diskavailable
     a.class.should be(Float)
     a.should_not be_nil
   end
 end
 
-describe 'DiskAvailable_on' do
-  it "should be the GB of disk used on root partition" do
+describe "DiskAvailable_on" do
+  xit "should be the GB of disk used on root partition" do
     a = Usagewatch.uw_diskavailable_on("/")
     a.class.should be(Float)
     a.should_not be_nil
@@ -43,8 +45,8 @@ describe 'DiskAvailable_on' do
 end
 
 
-describe 'CPUUsage' do
-  it "should be the percentage of cpu used" do
+describe "CPUUsage" do
+  xit "should be the percentage of cpu used" do
     a = Usagewatch.uw_cpuused
     a.class.should be(Float)
     a.should_not be_nil
@@ -53,8 +55,8 @@ describe 'CPUUsage' do
   end
 end
 
-describe 'PercentageDiskUsage' do
-  it "should be the percentage of GB of disk used" do
+describe "PercentageDiskUsage" do
+  xit "should be the percentage of GB of disk used" do
     a = Usagewatch.uw_diskused_perc
     a.class.should be(Float)
     a.should_not be_nil
@@ -63,8 +65,8 @@ describe 'PercentageDiskUsage' do
   end
 end
 
-describe 'LoadAverage' do
-  it "should be the average load of the past minute" do
+describe "LoadAverage" do
+  xit "should be the average load of the past minute" do
     a = Usagewatch.uw_load
     a.class.should be(Float)
     a.should_not be_nil
@@ -72,10 +74,10 @@ describe 'LoadAverage' do
   end
 end
 
-describe 'TopCPUUsage' do
-  it "should be an array of top cpu consumption proccesses " do
+describe "TopCPUUsage" do
+  xit "should be an array of top cpu consumption proccesses " do
     a = Usagewatch.uw_cputop
-    a.class.should be(Array )
+    a.class.should be(Array)
     a.should_not be_nil
     a[0][0].class.should be String
     a[0][1].class.should be String
@@ -83,10 +85,10 @@ describe 'TopCPUUsage' do
   end
 end
 
-describe 'TopMEMUsage' do
-  it "should be an array of top mem consumption proccesses " do
+describe "TopMEMUsage" do
+  xit "should be an array of top mem consumption proccesses " do
     a = Usagewatch.uw_cputop
-    a.class.should be(Array )
+    a.class.should be(Array)
     a.should_not be_nil
     a[0][0].class.should be String
     a[0][1].class.should be String
@@ -94,8 +96,8 @@ describe 'TopMEMUsage' do
   end
 end
 
-describe 'HTTPConns' do
-  it 'should be the number of current apache connections' do
+describe "HTTPConns" do
+  xit "should be the number of current apache connections" do
     a = Usagewatch.uw_httpconns
     a.class.should be Fixnum
     a.should_not be_nil

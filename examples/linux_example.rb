@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-#License: (MIT), Copyright (C) 2013 Author Phil Chen, Contributor Ruben Espinosa
+# License: (MIT), Copyright (C) 2013 Author Phil Chen, Contributor Ruben Espinosa
 
-require 'usagewatch'
+require "usagewatch"
 
-usw =  Usagewatch
+usw = Usagewatch
 
 puts "#{usw.uw_diskused} Gigabytes Used"
 puts "#{usw.uw_diskused_perc} Perventage of Gigabytes Used"

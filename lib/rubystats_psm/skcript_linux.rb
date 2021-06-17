@@ -1,4 +1,6 @@
-module Usagewatch
+# frozen_string_literal: true
+
+class RubyStatsPsm
   # Show the amount of total disk used in Gigabytes
   def self.uw_diskused
     @df = `df`
@@ -8,7 +10,7 @@ module Usagewatch
       @sum += @parts[i]
     end
     @round = @sum.round(2)
-    @totaldiskused = ((@round/1024)/1024).round(2)
+    @totaldiskused = ((@round / 1024) / 1024).round(2)
   end
 
   def self.uw_diskavailable
@@ -17,10 +19,10 @@ module Usagewatch
     df.each_line.with_index do |line, line_index|
       next if line_index.eql? 0
       line = line.split(" ")
-      next if line[0] =~ /localhost/  #ignore backup filesystem
-      sum += ((line[3].to_f)/1024)/1024
+      next if /localhost/.match?(line[0])  # ignore backup filesystem
+      sum += ((line[3].to_f) / 1024) / 1024
     end
-    totaldiskavailable = sum.round(2)
+    sum.round(2)
   end
 
   # Show the percentage of disk used.
@@ -31,9 +33,9 @@ module Usagewatch
 
   # Show the percentage of CPU used
   def self.uw_cpuused
-    @proc0 = File.readlines('/proc/stat').grep(/^cpu /).first.split(" ")
+    @proc0 = File.readlines("/proc/stat").grep(/^cpu /).first.split(" ")
     sleep 1
-    @proc1 = File.readlines('/proc/stat').grep(/^cpu /).first.split(" ")
+    @proc1 = File.readlines("/proc/stat").grep(/^cpu /).first.split(" ")
 
     @proc0usagesum = @proc0[1].to_i + @proc0[2].to_i + @proc0[3].to_i
     @proc1usagesum = @proc1[1].to_i + @proc1[2].to_i + @proc1[3].to_i
@@ -67,7 +69,7 @@ module Usagewatch
 
   # Show the number of TCP connections used
   def self.uw_tcpused
-    if File.exists?("/proc/net/sockstat")
+    if File.exist?("/proc/net/sockstat")
       File.open("/proc/net/sockstat", "r") do |ipv4|
         @sockstat = ipv4.read
       end
@@ -76,10 +78,9 @@ module Usagewatch
       @tcp4count = @tcp4data[5]
     end
 
-    if  File.exists?("/proc/net/sockstat6")
+    if  File.exist?("/proc/net/sockstat6")
       File.open("/proc/net/sockstat6", "r") do |ipv6|
         @sockstat6 = ipv6.read
-
       end
 
       @tcp6data = @sockstat6.split
@@ -91,7 +92,7 @@ module Usagewatch
 
   # Show the number of UDP connections used
   def self.uw_udpused
-    if File.exists?("/proc/net/sockstat")
+    if File.exist?("/proc/net/sockstat")
       File.open("/proc/net/sockstat", "r") do |ipv4|
         @sockstat = ipv4.read
       end
@@ -100,7 +101,7 @@ module Usagewatch
       @udp4count = @udp4data[16]
     end
 
-    if File.exists?("/proc/net/sockstat6")
+    if File.exist?("/proc/net/sockstat6")
       File.open("/proc/net/sockstat6", "r") do |ipv6|
         @sockstat6 = ipv6.read
       end
@@ -114,13 +115,13 @@ module Usagewatch
 
   # Show the percentage of Active Memory used
   def self.uw_memused
-    if File.exists?("/proc/meminfo")
+    if File.exist?("/proc/meminfo")
       File.open("/proc/meminfo", "r") do |file|
         @result = file.read
       end
     end
 
-    @memstat = @result.split("\n").collect{|x| x.strip}
+    @memstat = @result.split("\n").collect { |x| x.strip }
     @memtotal = @memstat[0].gsub(/[^0-9]/, "")
     @memactive = @memstat[5].gsub(/[^0-9]/, "")
     @memactivecalc = (@memactive.to_f * 100) / @memtotal.to_f
@@ -141,7 +142,7 @@ module Usagewatch
 
   # Show the average system load of the past minute
   def self.uw_load
-    if File.exists?("/proc/loadavg")
+    if File.exist?("/proc/loadavg")
       File.open("/proc/loadavg", "r") do |file|
         @loaddata = file.read
       end
@@ -152,8 +153,7 @@ module Usagewatch
 
   # Bandwidth Received Method
   def self.bandrx
-
-    if File.exists?("/proc/net/dev")
+    if File.exist?("/proc/net/dev")
       File.open("/proc/net/dev", "r") do |file|
         @result = file.read
       end
@@ -166,7 +166,7 @@ module Usagewatch
     rowcount = (@arrEthLoRows.count - 1)
 
     for i in (0..rowcount)
-      @arrEthLoRows[i] = @arrEthLoRows[i].gsub(/\s+/m, ' ').strip.split(" ")
+      @arrEthLoRows[i] = @arrEthLoRows[i].gsub(/\s+/m, " ").strip.split(" ")
     end
 
     @arrColumns = Array.new
@@ -195,7 +195,6 @@ module Usagewatch
 
   # Current Bandwidth Received Calculation in Mbit/s
   def self.uw_bandrx
-
     @new0 = self.bandrx
     sleep 1
     @new1 = self.bandrx
@@ -207,8 +206,7 @@ module Usagewatch
 
   # Bandwidth Transmitted Method
   def self.bandtx
-
-    if File.exists?("/proc/net/dev")
+    if File.exist?("/proc/net/dev")
       File.open("/proc/net/dev", "r") do |file|
         @result = file.read
       end
@@ -221,7 +219,7 @@ module Usagewatch
     rowcount = (@arrEthLoRows.count - 1)
 
     for i in (0..rowcount)
-      @arrEthLoRows[i] = @arrEthLoRows[i].gsub(/\s+/m, ' ').strip.split(" ")
+      @arrEthLoRows[i] = @arrEthLoRows[i].gsub(/\s+/m, " ").strip.split(" ")
     end
 
     @arrColumns = Array.new
@@ -250,7 +248,6 @@ module Usagewatch
 
   # Current Bandwidth Transmitted in Mbit/s
   def self.uw_bandtx
-
     @new0 = self.bandtx
     sleep 1
     @new1 = self.bandtx
@@ -262,8 +259,7 @@ module Usagewatch
 
   # Disk Usage Method
   def self.diskio
-
-    if File.exists?("/proc/diskstats")
+    if File.exist?("/proc/diskstats")
       File.open("/proc/diskstats", "r") do |file|
         @result = file.read
       end
@@ -274,7 +270,7 @@ module Usagewatch
     rowcount = (@arrRows.count - 1)
 
     for i in (0..rowcount)
-      @arrRows[i] = @arrRows[i].gsub(/\s+/m, ' ').strip.split(" ")
+      @arrRows[i] = @arrRows[i].gsub(/\s+/m, " ").strip.split(" ")
     end
 
     @arrColumns = Array.new
@@ -298,12 +294,11 @@ module Usagewatch
       end
     end
 
-    @diskiorw= @arrTotal
+    @diskiorw = @arrTotal
   end
 
   # Current Disk Reads Completed
   def self.uw_diskioreads
-
     @new0 = self.diskio
     sleep 1
     @new1 = self.diskio
@@ -313,7 +308,6 @@ module Usagewatch
 
   # Current Disk Writes Completed
   def self.uw_diskiowrites
-
     @new0 = self.diskio
     sleep 1
     @new1 = self.diskio

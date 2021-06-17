@@ -1,10 +1,11 @@
 #!/usr/bin/ruby
+# frozen_string_literal: true
 
-#License: (MIT), Copyright (C) 2013 Author Ruben Espinosa
+# License: (MIT), Copyright (C) 2013 Author Ruben Espinosa
 
-require 'usagewatch_ext'
+require "usagewatch_ext"
 
-usw =  Usagewatch
+usw = Usagewatch
 
 puts "#{usw.uw_diskused} Gigabytes Used"
 puts "#{usw.uw_diskused_perc} Percentage of Gigabytes Used"

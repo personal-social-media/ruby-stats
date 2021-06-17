@@ -1,6 +1,8 @@
-require 'rubygems'
-require 'bundler/setup'
-require 'coveralls'
+# frozen_string_literal: true
+
+require "rubygems"
+require "bundler/setup"
+require "coveralls"
 Coveralls.wear!
 
 OS = RUBY_PLATFORM

@@ -1,7 +1,5 @@
-source 'https://rubygems.org'
+# frozen_string_literal: true
 
-# Specify your gem's dependencies in usagewatch_ext.gemspec
-gemspec
-gem 'usagewatch'
-gem 'coveralls', :require => false
+source "https://rubygems.org"
 
+gem "rubocop-rails_config"
