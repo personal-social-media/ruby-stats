@@ -2,19 +2,19 @@
 
 class RubyStatsPsm
   # Show the amount of total disk used in Gigabytes
-  def self.uw_diskused
-    @df = `df`
-    @parts = @df.split(" ").map { |s| s.to_i }
-    @sum = 0
-    for i in (9..@parts.size - 1).step(6) do
-      @sum += @parts[i]
-    end
-    @round = @sum.round(2)
-    @totaldiskused = ((@round / 1024) / 1024).round(2)
+  def uw_diskused
+    df = execute_command("df")
+    parts = df.split(" ").map { |s| s.to_i }
+    sum = 0
+    (9..parts.size - 1).step(6).each { |i|
+      sum += parts[i]
+    }
+    round = sum.round(2)
+    ((round / 1024) / 1024).round(2)
   end
 
-  def self.uw_diskavailable
-    df = `df -kl`
+  def uw_diskavailable
+    df = execute_command("df -kl")
     sum = 0.00
     df.each_line.with_index do |line, line_index|
       next if line_index.eql? 0
@@ -25,38 +25,14 @@ class RubyStatsPsm
     sum.round(2)
   end
 
-  # Show the percentage of disk used.
-  def self.uw_diskused_perc
-    df = `df --total`
-    df.split(" ").last.to_f.round(2)
+  def uw_diskused_perc
+    execute_command("df --output=pcent / | tr -dc '0-9'").to_i
   end
 
-  # Show the percentage of CPU used
-  def self.uw_cpuused
-    @proc0 = File.readlines("/proc/stat").grep(/^cpu /).first.split(" ")
-    sleep 1
-    @proc1 = File.readlines("/proc/stat").grep(/^cpu /).first.split(" ")
-
-    @proc0usagesum = @proc0[1].to_i + @proc0[2].to_i + @proc0[3].to_i
-    @proc1usagesum = @proc1[1].to_i + @proc1[2].to_i + @proc1[3].to_i
-    @procusage = @proc1usagesum - @proc0usagesum
-
-    @proc0total = 0
-    for i in (1..4) do
-      @proc0total += @proc0[i].to_i
-    end
-    @proc1total = 0
-    for i in (1..4) do
-      @proc1total += @proc1[i].to_i
-    end
-    @proctotal = (@proc1total - @proc0total)
-
-    @cpuusage = (@procusage.to_f / @proctotal.to_f)
-    @cpuusagepercentage = (100 * @cpuusage).to_f.round(2)
+  def uw_cpuused
+    execute_command("grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage }'").to_f
   end
 
-  # return hash of top ten proccesses by cpu consumption
-  # example [["apache2", 12.0], ["passenger", 13.2]]
   def self.uw_cputop
     ps = `ps aux | awk '{print $11, $3}' | sort -k2nr  | head -n 10`
     array = []
@@ -131,7 +107,7 @@ class RubyStatsPsm
   # return hash of top ten proccesses by mem consumption
   # example [["apache2", 12.0], ["passenger", 13.2]]
   def self.uw_memtop
-    ps = `ps aux | awk '{print $11, $4}' | sort -k2nr  | head -n 10`
+    ps = execute_command("ps aux | awk '{print $11, $4}' | sort -k2nr  | head -n 10")
     array = []
     ps.each_line do |line|
       line = line.chomp.split(" ")

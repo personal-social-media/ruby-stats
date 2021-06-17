@@ -3,3 +3,5 @@
 source "https://rubygems.org"
 
 gem "rubocop-rails_config"
+gem "usagewatch", "~> 0.0.7"
+gem "rspec"

@@ -64,23 +64,6 @@ Top Ten Processes By Memory Consumption:
 [["unicorn", "4.8"], ["unicorn", "4.7"], ["unicorn", "4.6"], ["unicorn", "4.6"], ["unicorn", "4.5"], ["unicorn", "4.5"], ["unicorn", "4.3"], ["unicorn", "4.3"], ["unicorn", "4.2"], ["/usr/lib64/erlang/erts-5.8.5/bin/beam.smp", "4.0"]]
 ```
 
-```bash
-Run:
-
-mac_example.rb
-
-Example Output:
-
-Mac version is under development
-92.8 Gigabytes Used
-24.96 Percentage of Gigabytes Used
-71.47% Active Memory Used
-7.69% CPU Used
-1.19 Average System Load Of The Past Minute
-Top Ten Processes By CPU Consumption: [["PluginProcess", "9.0"], ["WindowServer", "2.7"], ["iPhoto", "1.2"], ["Terminal", "1.0"], ["rubymine", "0.5"], ["SystemUIServer", "0.1"], ["(scanunit)", "0.0"], ["(scanunit)", "0.0"], ["(scanunit)", "0.0"], ["(scanunit)", "0.0"]]
-Top Ten Processes By Memory Consumption: [["WebProcess", "8.3"], ["rubymine", "6.4"], ["Safari", "2.0"], ["iPhoto", "1.8"], ["Mail", "1.7"], ["mds", "1.6"], ["ruby", "1.5"], ["WindowServer", "1.3"], ["PluginProcess", "1.2"], ["GitHub", "1.1"]]
-```
-
 ## Methods available
 
 ##### Linux
@@ -155,6 +138,5 @@ Top Ten Processes By Memory Consumption: [["WebProcess", "8.3"], ["rubymine", "6
 
 **TESTED OS VERSIONS:**
 - Ubuntu 20.04
-- Mac OS 10.x
 
 License MIT

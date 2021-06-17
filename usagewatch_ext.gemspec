@@ -7,7 +7,7 @@ require "usagewatch_ext/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "psm-ruby-stats"
-  spec.version       = UsagewatchExt::VERSION
+  spec.version       = RubyStatsPsm::VERSION
   spec.authors       = ["Personal Social Media"]
   spec.email         = ["contact@personalsocialmedia.net"]
   spec.description   = "A Ruby Gem with methods to find usage statistics such as CPU, Disk, TCP/UDP Connections, Load, Bandwidth, Disk I/O, and Memory"
@@ -21,9 +21,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency("usagewatch", "~> 0.0.6")
-  spec.add_development_dependency "bundler"
-  spec.add_development_dependency "rake"
+  spec.add_runtime_dependency("usagewatch", "~> 0.0.7")
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "rubocop-rails_config"
 end
