@@ -1,4 +1,4 @@
-# ruby-stats-psm
+# ruby-server_stats-psm
 
 Credits to https://github.com/skcript for the initial code.
 
@@ -15,27 +15,27 @@ Here are some of the statistics you can get about your system:
 
 ## Getting Started
 
-gem install usagewatch_ext
+gem install psm-ruby-stats
 
 ```ruby
-require 'usagewatch_ext'
+require 'psm-ruby-stats'
 
-usw = Usagewatch
+server_stats = RubyStatsPsm
 
-usw.uw_diskused
-usw.uw_diskused_perc
-usw.uw_cpuused
-usw.uw_tcpused
-usw.uw_udpused
-usw.uw_memused
-usw.uw_load
-usw.uw_bandrx
-usw.uw_bandtx
-usw.uw_diskioreads
-usw.uw_diskiowrites
-usw.uw_cputop
-usw.uw_memtop
-usw.uw_apacheconns
+server_stats.uw_diskused
+server_stats.uw_diskused_perc
+server_stats.uw_cpuused
+server_stats.uw_tcpused
+server_stats.uw_udpused
+server_stats.uw_memused
+server_stats.uw_load
+server_stats.uw_bandrx
+server_stats.uw_bandtx
+server_stats.uw_diskioreads
+server_stats.uw_diskiowrites
+server_stats.uw_cputop
+server_stats.uw_memtop
+server_stats.uw_apacheconns
 ```
 
 ## Example
