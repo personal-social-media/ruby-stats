@@ -50,3 +50,6 @@ jobs:
       - name: Run tests
         run: |
           bundle exec rspec --profile
+      - name: Run security checks
+        run: |
+          bundle exec bundler-audit --update

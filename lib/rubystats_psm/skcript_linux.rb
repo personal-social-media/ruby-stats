@@ -33,7 +33,7 @@ class RubyStatsPsm
     execute_command("grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage }'").to_f
   end
 
-  def self.uw_cputop
+  def uw_cputop
     ps = `ps aux | awk '{print $11, $3}' | sort -k2nr  | head -n 10`
     array = []
     ps.each_line do |line|
@@ -44,69 +44,80 @@ class RubyStatsPsm
   end
 
   # Show the number of TCP connections used
-  def self.uw_tcpused
+  def uw_tcpused
+    tcp4count = nil
+    tcp6count = nil
+
     if File.exist?("/proc/net/sockstat")
+      sockstat = nil
       File.open("/proc/net/sockstat", "r") do |ipv4|
-        @sockstat = ipv4.read
+        sockstat = ipv4.read
       end
 
-      @tcp4data = @sockstat.split
-      @tcp4count = @tcp4data[5]
+      tcp4data = sockstat.split
+      tcp4count =  tcp4data[5]
     end
 
     if  File.exist?("/proc/net/sockstat6")
+      sockstat6 = nil
       File.open("/proc/net/sockstat6", "r") do |ipv6|
-        @sockstat6 = ipv6.read
+        sockstat6 = ipv6.read
       end
 
-      @tcp6data = @sockstat6.split
-      @tcp6count = @tcp6data[2]
+      tcp6data = sockstat6.split
+      tcp6count = tcp6data[2]
     end
 
-    @totaltcpused = @tcp4count.to_i + @tcp6count.to_i
+    tcp4count.to_i + tcp6count.to_i
   end
 
   # Show the number of UDP connections used
-  def self.uw_udpused
+  def uw_udpused
+    udp4count = nil
+    udp6count = nil
+
     if File.exist?("/proc/net/sockstat")
+      sockstat = nil
       File.open("/proc/net/sockstat", "r") do |ipv4|
-        @sockstat = ipv4.read
+        sockstat = ipv4.read
       end
 
-      @udp4data = @sockstat.split
-      @udp4count = @udp4data[16]
+      udp4data = sockstat.split
+      udp4count = udp4data[16]
     end
 
     if File.exist?("/proc/net/sockstat6")
+      sockstat6 = nil
       File.open("/proc/net/sockstat6", "r") do |ipv6|
-        @sockstat6 = ipv6.read
+        sockstat6 = ipv6.read
       end
 
-      @udp6data = @sockstat6.split
-      @udp6count = @udp6data[5]
+      udp6data = sockstat6.split
+      udp6count = udp6data[5]
     end
 
-    @totaludpused = @udp4count.to_i + @udp6count.to_i
+    udp4count.to_i + udp6count.to_i
   end
 
   # Show the percentage of Active Memory used
-  def self.uw_memused
+  def uw_memused
+    result = nil
     if File.exist?("/proc/meminfo")
       File.open("/proc/meminfo", "r") do |file|
-        @result = file.read
+        result = file.read
       end
     end
 
-    @memstat = @result.split("\n").collect { |x| x.strip }
-    @memtotal = @memstat[0].gsub(/[^0-9]/, "")
-    @memactive = @memstat[5].gsub(/[^0-9]/, "")
-    @memactivecalc = (@memactive.to_f * 100) / @memtotal.to_f
-    @memusagepercentage = @memactivecalc.round
+    memstat = result.split("\n").collect { |x| x.strip }
+    memtotal = memstat[0].gsub(/[^0-9]/, "")
+    memactive = memstat[5].gsub(/[^0-9]/, "")
+    memactivecalc = (memactive.to_f * 100) / memtotal.to_f
+    memactivecalc.round
   end
 
   # return hash of top ten proccesses by mem consumption
   # example [["apache2", 12.0], ["passenger", 13.2]]
-  def self.uw_memtop
+  def uw_memtop
     ps = execute_command("ps aux | awk '{print $11, $4}' | sort -k2nr  | head -n 10")
     array = []
     ps.each_line do |line|
@@ -117,13 +128,15 @@ class RubyStatsPsm
   end
 
   # Show the average system load of the past minute
-  def self.uw_load
+  def uw_load
     if File.exist?("/proc/loadavg")
+      load_data = nil
+
       File.open("/proc/loadavg", "r") do |file|
-        @loaddata = file.read
+        load_data = file.read
       end
 
-      @load = @loaddata.split(/ /).first.to_f
+      load_data.split(/ /).first.to_f
     end
   end
 
