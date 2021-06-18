@@ -55,7 +55,7 @@ class RubyStatsPsm
       end
 
       tcp4data = sockstat.split
-      tcp4count =  tcp4data[5]
+      tcp4count = tcp4data[5]
     end
 
     if  File.exist?("/proc/net/sockstat6")

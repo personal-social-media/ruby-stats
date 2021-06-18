@@ -2,7 +2,10 @@
 
 source "https://rubygems.org"
 
-gem "rubocop-rails_config"
 gem "usagewatch", "~> 0.0.7"
-gem "rspec"
-gem "brakeman"
+
+group :development, :test do
+  gem "rspec"
+  gem "bundler-audit"
+  gem "rubocop-rails_config"
+end
